@@ -1,0 +1,5 @@
+<launch>
+<node pkg="vehicle_status" type="vehicle_status_node" name="vehicle_status" output="screen">
+<param name="frame_id"             value="vehicle"/>
+</node>
+</launch>
