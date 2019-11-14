@@ -42,6 +42,7 @@ bool VEHICLE_STATUS::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty
 void VEHICLE_STATUS::publishmessage(MBE_Struct MBE_Data){
     local_messages::VehicleState vehicle_state;
 
+    vehicle_state.header.stamp = ros::Time::now();
     vehicle_state.speed = MBE_Data.speed;
     vehicle_state.steerAngle = MBE_Data.steerAngle;
     vehicle_state.wheel_speed_rightF = MBE_Data.wheel_speed_rightF;
