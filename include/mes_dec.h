@@ -11,6 +11,9 @@ typedef struct
     // The vehicle forward speed from dSPACE
     double speed;
 
+    // The vehicle gear from dSPACE
+    int gear;
+
     //The vehicle steer angle from dSPACE
     double steerAngle;
 
@@ -34,6 +37,7 @@ class MES_DEC
 {
 private:
     void Message0x101(unsigned char data[8]);
+    void Message0x113(unsigned char data[8]);
     void Message0x122(unsigned char data[8]);
     void Message0x123(unsigned char data[8]);
 public:

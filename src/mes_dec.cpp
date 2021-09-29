@@ -7,6 +7,27 @@ void MES_DEC::Message0x101(unsigned char data[8])
     MBE_Data.available = true;
 }
 
+void MES_DEC::Message0x113(unsigned char data[8])
+{
+    unsigned char gear_info = (data[4] & 0x0F) >> 4 ;
+    if(gear_info == 0x0){
+        MBE_Data.gear = 2;
+    }
+    else if( gear_info == 0x1 || gear_info == 0x2 || gear_info == 0x3 || gear_info == 0x4 || gear_info == 0x4 || gear_info == 0x5 || gear_info == 0x6 || gear_info == 0x7){
+        MBE_Data.gear = 1;
+    }
+    else if(gear_info == 0xA){
+        MBE_Data.gear = 0;
+    }
+    else if(gear_info == 0xB){
+        MBE_Data.gear = -1;
+    }
+    else{
+        MBE_Data.gear = 100;
+    }
+    MBE_Data.available = true;
+}
+
 void MES_DEC::Message0x122(unsigned char data[8])
 {
     unsigned char direction_leftF = (data[1] & 0x06)>>1; // 10-9: 0: standstill; 1: forward; 2: backward; 3: invalid
@@ -96,6 +117,7 @@ void MES_DEC::Message0x123(unsigned char data[8])
 MES_DEC::MES_DEC()
 {
     MBE_Data.speed = 0;
+    MBE_Data.gear = 0;
     MBE_Data.steerAngle = 0;
     MBE_Data.wheel_speed_rightF = 0;
     MBE_Data.wheel_speed_leftF = 0;
@@ -112,6 +134,7 @@ MBE_Struct MES_DEC::MBE_Data_Update(unsigned int ID, unsigned char data[8])
     switch (ID)
     {
         case 0x0101: Message0x101(data); break;
+        case 0x0113: Message0x113(data); break;
         case 0x0122: Message0x122(data); break;
         case 0x0123: Message0x123(data); break;
         default:break;

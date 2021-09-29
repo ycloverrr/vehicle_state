@@ -27,10 +27,10 @@ bool VEHICLE_STATUS::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty
     while(ros::ok()){
         mes_rec.CAN2_Receive(ID,Data);
 //        if(ID==0x101 || ID==0x122 || ID==0x123)
-        cout<<hex<<ID<<endl;
         mes_dec_data = mes_dec.MBE_Data_Update(ID,Data);
-        if(mes_dec_data.available)
+        if(mes_dec_data.available&&(ID==0x0101 || ID==0x0113 || ID==0x0122 || ID==0x0123))
         {
+            cout<<hex<<ID<<endl;
             publishmessage(mes_dec_data);
         }
         else
@@ -44,6 +44,7 @@ void VEHICLE_STATUS::publishmessage(MBE_Struct MBE_Data){
 
     vehicle_state.header.stamp = ros::Time::now();
     vehicle_state.speed = MBE_Data.speed;
+    vehicle_state.gear = MBE_Data.gear;
     vehicle_state.steerAngle = MBE_Data.steerAngle;
     vehicle_state.wheel_speed_rightF = MBE_Data.wheel_speed_rightF;
     vehicle_state.wheel_speed_leftF = MBE_Data.wheel_speed_leftF;
