@@ -1,4 +1,5 @@
 #include"mes_dec.h"
+#include<iostream>
 //=============================================Message===================================
 void MES_DEC::Message0x101(unsigned char data[8])
 {
@@ -7,19 +8,30 @@ void MES_DEC::Message0x101(unsigned char data[8])
     MBE_Data.available = true;
 }
 
-void MES_DEC::Message0x113(unsigned char data[8])
+void MES_DEC::Message0x093(unsigned char data[8])
 {
-    unsigned char gear_info = (data[4] & 0x0F) >> 4 ;
-    if(gear_info == 0x0){
+    unsigned char gear_info = ((data[5] & 0xF0 )>> 4) ;
+    //std::cout<<std::endl;
+    //printf("%#x\n",data[0]);
+    //printf("%#x\n",data[1]);
+    //printf("%#x\n",data[2]);
+    //printf("%#x\n",data[3]);
+    //printf("%#x\n",data[4]);
+    //printf("%#x\n",data[5]);
+    //printf("%#x\n",data[6]);
+    //printf("%#x\n",data[7]);
+    //std::cout<<std::endl;
+    //printf("%#x\n",gear_info);
+    if(gear_info == 0x00){
         MBE_Data.gear = 2;
     }
-    else if( gear_info == 0x1 || gear_info == 0x2 || gear_info == 0x3 || gear_info == 0x4 || gear_info == 0x4 || gear_info == 0x5 || gear_info == 0x6 || gear_info == 0x7){
+    else if( gear_info == 0x01 || gear_info == 0x02 || gear_info == 0x03 || gear_info == 0x04 || gear_info == 0x05 || gear_info == 0x06 || gear_info == 0x07){
         MBE_Data.gear = 1;
     }
-    else if(gear_info == 0xA){
+    else if(gear_info == 0x0A){
         MBE_Data.gear = 0;
     }
-    else if(gear_info == 0xB){
+    else if(gear_info == 0x0B){
         MBE_Data.gear = -1;
     }
     else{
@@ -133,8 +145,8 @@ MBE_Struct MES_DEC::MBE_Data_Update(unsigned int ID, unsigned char data[8])
 {
     switch (ID)
     {
+        case 0x0093: Message0x093(data); break;
         case 0x0101: Message0x101(data); break;
-        case 0x0113: Message0x113(data); break;
         case 0x0122: Message0x122(data); break;
         case 0x0123: Message0x123(data); break;
         default:break;

@@ -36,8 +36,8 @@ typedef struct
 class MES_DEC
 {
 private:
+    void Message0x093(unsigned char data[8]);
     void Message0x101(unsigned char data[8]);
-    void Message0x113(unsigned char data[8]);
     void Message0x122(unsigned char data[8]);
     void Message0x123(unsigned char data[8]);
 public:

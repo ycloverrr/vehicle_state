@@ -28,14 +28,14 @@ bool VEHICLE_STATUS::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty
         mes_rec.CAN2_Receive(ID,Data);
 //        if(ID==0x101 || ID==0x122 || ID==0x123)
         mes_dec_data = mes_dec.MBE_Data_Update(ID,Data);
-        if(mes_dec_data.available&&(ID==0x0101 || ID==0x0113 || ID==0x0122 || ID==0x0123))
+        if(mes_dec_data.available&&(ID==0x0093 || ID==0x0101 || ID==0x0122 || ID==0x0123))
         {
             cout<<hex<<ID<<endl;
             publishmessage(mes_dec_data);
         }
         else
         {
-            cout<<"vehicle_state not available."<<endl;
+            //cout<<"vehicle_state not available."<<endl;
         }
     }
 }
