@@ -14,6 +14,14 @@
 #include "pcie_rec.h"
 #include "mes_dec.h"
 
+#include <ros/ros.h>
+#include <string>
+
+#define LOG_DEBUG(x) ROS_DEBUG_STREAM(x)
+#define LOG_INFO(x) ROS_INFO_STREAM(x)
+#define LOG_WARNING(x) ROS_WARN_STREAM(x)
+#define LOG_ERROR(x) ROS_ERROR_STREAM(x)
+#define LOG_FATAL(x) ROS_FATAL_STREAM(x)
 
 namespace vehicle_status{
 class VEHICLE_STATUS{
@@ -39,6 +47,8 @@ private:
     ros::Time stamp_;
 
     std::string p_frame_id_;
+
+    int info_time = 2000;
 
 
 };

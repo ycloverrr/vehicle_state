@@ -30,12 +30,16 @@ bool VEHICLE_STATUS::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty
         mes_dec_data = mes_dec.MBE_Data_Update(ID,Data);
         if(mes_dec_data.available&&(ID==0x0093 || ID==0x0101 || ID==0x0122 || ID==0x0123))
         {
-            cout<<hex<<ID<<endl;
             publishmessage(mes_dec_data);
         }
         else
         {
             //cout<<"vehicle_state not available."<<endl;
+        }
+        info_time--;
+        if(info_time==0){
+            LOG_INFO("vehicle_status node is working");
+            info_time = 2000;
         }
     }
 }
