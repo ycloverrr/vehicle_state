@@ -36,11 +36,11 @@ bool VEHICLE_STATUS::updateParams(std_srvs::Empty::Request &req, std_srvs::Empty
         {
             //cout<<"vehicle_state not available."<<endl;
         }
-        info_time--;
-        if(info_time==0){
-            LOG_INFO("vehicle_status node is working");
-            info_time = 2000;
-        }
+//        info_time--;
+//        if(info_time==0){
+//            LOG_INFO("vehicle_status node is working");
+//            info_time = 2000;
+//        }
     }
 }
 void VEHICLE_STATUS::publishmessage(MBE_Struct MBE_Data){
